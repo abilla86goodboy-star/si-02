@@ -1,0 +1,125 @@
+/* Final visual-audit layer: predictable layout and no accidental scale/overflow. */
+html, body, #root { max-width: 100%; overflow-x: clip; }
+button, input { -webkit-tap-highlight-color: transparent; }
+.intro-counter { display: none !important; }
+.archive-ticker { overflow: hidden; white-space: nowrap; }
+.archive-ticker > div { display: flex; width: max-content; will-change: transform; }
+.archive-ticker span { flex: 0 0 auto; }
+.person, .portrait, .modal-portrait, .profile-modal, .photo-lightbox { max-width: 100%; }
+.person:focus-visible, .modal-portrait:focus-visible, .student-search input:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.modal-backdrop { overscroll-behavior: contain; }
+.profile-modal { overscroll-behavior: contain; }
+.modal-portrait { cursor: pointer; }
+.modal-portrait > img,
+.modal-portrait:hover > img {
+  transform: none !important;
+  transition: filter .25s ease !important;
+}
+.photo-lightbox img,
+.photo-lightbox img.abilla-photo,
+.photo-lightbox img.abdad-photo {
+  width: auto !important;
+  height: auto !important;
+  max-width: min(92vw, 960px) !important;
+  max-height: calc(100svh - 112px) !important;
+  transform: none !important;
+  animation: photo-fade-in .24s ease both !important;
+  object-fit: contain !important;
+}
+.photo-lightbox img.abilla-photo { object-position: center center !important; }
+@keyframes photo-fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+@media (max-width: 800px) {
+  html, body, #root, main.archive { width: 100%; min-width: 0; overflow-x: clip; }
+  .archive nav { min-width: 0; }
+  .intro { min-height: 560px !important; padding-top: 76px !important; }
+  .intro-counter, .intro-vertical { display: none !important; }
+  .intro-status { width: calc(100% - 44px) !important; left: 22px !important; right: auto !important; }
+  .intro-stickers { right: 14px !important; top: 88px !important; transform: scale(.78); transform-origin: top right; }
+  .intro:after { max-width: 100%; overflow: hidden; }
+  .students { overflow-x: clip !important; }
+  .student-motion, .student-radar { opacity: .22 !important; }
+  .class-rail { min-width: 0 !important; overflow: hidden !important; }
+  .section-head, .section-head > div, .student-search { max-width: 100%; min-width: 0; }
+  .student-search input { min-width: 0 !important; width: 100% !important; }
+  .one-card .person { width: 100% !important; min-width: 0 !important; }
+  .one-card .portrait { height: min(112vw, 455px) !important; min-height: min(112vw, 455px) !important; }
+  .one-card .portrait.has-photo img { transform: scale(1.12) !important; object-position: center 30% !important; }
+  .one-card .portrait.has-photo.abilla-photo img { transform: scale(1.08) !important; object-position: 40% 28% !important; }
+  .modal-backdrop {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 12px !important;
+    overflow: hidden !important;
+  }
+  .profile-modal,
+  html body main.archive .profile-modal {
+    display: flex !important;
+    flex-direction: column !important;
+    width: calc(100vw - 24px) !important;
+    height: calc(100dvh - 24px) !important;
+    min-height: 0 !important;
+    max-height: calc(100dvh - 24px) !important;
+    margin: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    border-radius: 16px !important;
+    transform: none !important;
+    animation: modal-mobile-in .24s ease both !important;
+  }
+  .profile-modal.is-closing { animation: modal-mobile-out .2s ease both !important; }
+  .modal-portrait,
+  html body main.archive .modal-portrait {
+    flex: 0 0 230px !important;
+    width: 100% !important;
+    height: 230px !important;
+    min-height: 230px !important;
+    grid-row: auto !important;
+  }
+  .modal-portrait > img,
+  .modal-portrait:hover > img,
+  html body main.archive .profile-modal .modal-portrait > img {
+    transform: scale(1.14) !important;
+    object-position: center 29% !important;
+    filter: grayscale(1) contrast(1.14) !important;
+  }
+  .modal-portrait.abilla-photo > img,
+  .modal-portrait.abilla-photo:hover > img {
+    transform: scale(1.08) !important;
+    object-position: 40% 27% !important;
+  }
+  .modal-portrait.abdad-photo > img,
+  .modal-portrait.abdad-photo:hover > img { transform: scale(1.12) !important; object-position: center 34% !important; }
+  .profile-copy { padding: 28px 22px 20px !important; }
+  .profile-copy h2 { font-size: clamp(40px, 12.3vw, 58px) !important; overflow-wrap: anywhere; }
+  .about-text { margin: 18px 0 !important; }
+  .lyrics { padding: 0 22px 36px !important; }
+  .profile-copy, .lyrics, .song, .about-text { max-width: 100%; overflow-wrap: anywhere; }
+  .expand-photo { opacity: 1 !important; transform: none !important; }
+  .photo-lightbox { padding: 14px !important; }
+  .photo-lightbox img,
+  .photo-lightbox img.abilla-photo,
+  .photo-lightbox img.abdad-photo {
+    width: auto !important;
+    height: auto !important;
+    max-width: calc(100vw - 28px) !important;
+    max-height: calc(100dvh - 92px) !important;
+    object-fit: contain !important;
+  }
+  .mini-player {
+    left: 50% !important;
+    right: auto !important;
+    bottom: 18px !important;
+    width: calc(100vw - 28px) !important;
+    max-width: 430px !important;
+    transform: translateX(-50%) !important;
+  }
+  .mini-player p { min-width: 0; overflow: hidden; }
+  .mini-player strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
+@keyframes modal-mobile-in { from { opacity: 0; translate: 0 12px; } to { opacity: 1; translate: 0 0; } }
+@keyframes modal-mobile-out { to { opacity: 0; translate: 0 10px; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
