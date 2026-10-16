@@ -123,3 +123,51 @@ button, input { -webkit-tap-highlight-color: transparent; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* Phone performance pass: keep the visual identity, but avoid repaint-heavy effects. */
+@media (max-width: 800px), (pointer: coarse) {
+  .scroll-index,
+  .top-radar,
+  .student-radar,
+  .student-motion,
+  .intro-traces,
+  .photo-radar-dot,
+  .photo-scan,
+  .landing-noise,
+  .background-flow,
+  .street-layer,
+  .terminal-log { display: none !important; }
+
+  .landing:after,
+  .archive-ticker { backdrop-filter: none !important; }
+
+  .landing-disc,
+  .marquee span,
+  .archive-ticker > div,
+  .yearbook-close,
+  .yearbook-close:before,
+  .yearbook-close:after,
+  .intro-stickers b,
+  .intro-vertical,
+  .card-scribble,
+  .portrait:after,
+  .modal-portrait:before,
+  .modal-portrait span,
+  .rings,
+  .song:after,
+  .play.is-playing i,
+  .mini-player.is-playing > i {
+    animation: none !important;
+  }
+
+  .portrait.has-photo img,
+  .modal-portrait > img,
+  .modal-portrait:hover > img,
+  .photo-lightbox img {
+    filter: grayscale(1) contrast(1.08) !important;
+    transition: none !important;
+  }
+
+  .person, .portrait, .mini-player, .shuffle-profile { transition-duration: .18s !important; }
+  .person:hover, .person:nth-child(even):hover { transform: none !important; }
+}

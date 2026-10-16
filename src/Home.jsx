@@ -56,11 +56,19 @@ function Boot({ onDone }) {
 function Landing({ onEnter }) { return <section className="landing"><div className="landing-noise" /><div className="street-layer" aria-hidden="true"><i /><i /><i /><b /><b /><b /></div><div className="background-flow" aria-hidden="true"><i /><i /><i /><i /><i /></div><div className="terminal-log" aria-hidden="true"><span>&gt; archive: ready</span><span>&gt; students: 02</span><span>&gt; music: linked</span><span>&gt; interface: active</span><span>&gt; system: online</span><span>&gt; archive: ready</span></div><header><span>SIT / 02</span><span>CLASS ARCHIVE</span><span>2026</span></header><div className="system-version">SYSTEM ARCHIVE<br /><b>VERSION 02.0</b></div><div className="landing-title"><p>WELCOME TO THE SYSTEM</p><h1>System<br /><i>Information</i><br />Two.</h1><div className="landing-words"><span>ANALYSIS</span><span>DATABASE</span><span>UI / UX</span></div><button onClick={onEnter}>START THE EXPERIENCE <b>↘</b></button></div><div className="data-console" aria-hidden="true"><div className="console-head"><span>SI_02 / LIVE</span><b>● ONLINE</b></div><div className="console-hero"><strong>INFORMATION<br />SYSTEMS</strong><small>001 — 010 — 101</small></div><div className="signal-bars"><i /><i /><i /><i /><i /><i /><i /><i /></div><div className="flow-labels"><span>ANALYSIS</span><b>→</b><span>DATABASE</span><b>→</b><span>UI / UX</span></div><div className="console-lines"><i /><i /><i /><i /></div></div><p className="landing-note">PEOPLE · DATA · STORIES · SYSTEMS</p><div className="marquee"><span>SYSTEM INFORMATION TWO · DESIGNING HUMAN SYSTEMS · SYSTEM INFORMATION TWO · DESIGNING HUMAN SYSTEMS · </span></div></section> }
 
 function trackRadar(event) {
+  if (window.matchMedia('(pointer: coarse)').matches) return
   const target = event.currentTarget
   const rect = target.getBoundingClientRect()
   target.style.setProperty('--radar-x', `${Math.round((event.clientX - rect.left) / rect.width * 100)}%`)
   target.style.setProperty('--radar-y', `${Math.round((event.clientY - rect.top) / rect.height * 100)}%`)
   target.classList.add('is-radar-active')
+}
+
+function trackStudentField(event) {
+  if (window.matchMedia('(pointer: coarse)').matches) return
+  const rect = event.currentTarget.getBoundingClientRect()
+  event.currentTarget.style.setProperty('--cursor-x', `${Math.round((event.clientX - rect.left) / rect.width * 100)}%`)
+  event.currentTarget.style.setProperty('--cursor-y', `${Math.round((event.clientY - rect.top) / rect.height * 100)}%`)
 }
 
 export default function Home() {
@@ -70,7 +78,7 @@ export default function Home() {
   useEffect(() => { const key = (event) => { if (event.key !== 'Escape') return; if (photoOpen) closePhoto(); else close() }; window.addEventListener('keydown', key); return () => window.removeEventListener('keydown', key) }, [photoOpen, closing, photoClosing])
   useEffect(() => { document.body.style.overflow = selected ? 'hidden' : ''; return () => { document.body.style.overflow = '' } }, [selected])
   useEffect(() => { if (playing && selected?.audio) setNowPlaying(selected) }, [playing, selected])
-  useEffect(() => { if (!entered) return undefined; const updateProgress = () => { const max = document.documentElement.scrollHeight - window.innerHeight; setScrollProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0) }; updateProgress(); window.addEventListener('scroll', updateProgress, { passive: true }); return () => window.removeEventListener('scroll', updateProgress) }, [entered])
+  useEffect(() => { if (!entered || window.matchMedia('(pointer: coarse)').matches) return undefined; let frame = 0; const updateProgress = () => { if (frame) return; frame = requestAnimationFrame(() => { const max = document.documentElement.scrollHeight - window.innerHeight; setScrollProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0); frame = 0 }) }; updateProgress(); window.addEventListener('scroll', updateProgress, { passive: true }); return () => { window.removeEventListener('scroll', updateProgress); if (frame) cancelAnimationFrame(frame) } }, [entered])
   useEffect(() => {
     if (!entered) return undefined
     const observer = new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add('is-visible')), { threshold: .06, rootMargin: '0px 0px 12% 0px' })
@@ -90,7 +98,7 @@ export default function Home() {
     {nowPlaying?.audio && <button className={`mini-player ${playing ? 'is-playing' : ''}`} onClick={toggleNowPlaying} aria-label={playing ? 'Jeda lagu' : 'Putar lagu'}><span>{playing ? 'Ⅱ' : '▶'}</span><p><small>{playing ? 'NOW PLAYING' : 'LAST PLAYED'}</small><strong>{nowPlaying.song} — {nowPlaying.artist}</strong></p><i /><i /><i /></button>}
     <nav aria-label="Navigasi utama"><a href="#home" className="logo">SIT<span>02</span></a><p>System Information Two</p><a href="#students">The Class <b>↓</b></a></nav>
     <section className="intro radar-zone" id="home" onPointerMove={trackRadar} onPointerLeave={(event) => event.currentTarget.classList.remove('is-radar-active')}><div className="top-radar" aria-hidden="true"><i /><i /><b>SCAN / 02</b></div><div className="intro-traces scroll-reveal" aria-hidden="true"><i /><i /><i /></div><div className="intro-stickers" aria-hidden="true"><b>FIRST DRAFT</b><b>PEOPLE FIRST</b><b>STILL BUILDING</b></div><div className="intro-counter" aria-hidden="true"><span>01</span><span>02</span><span>03</span><span>04</span><span>05</span><span>06</span><span>07</span><span>08</span><span>09</span><span>10</span></div><div className="intro-vertical" aria-hidden="true">HUMAN → DATA → SYSTEM → EXPERIENCE</div><p className="kicker scroll-reveal intro-kicker">2026 / SYSTEM INFORMATION TWO</p><h1 className="scroll-reveal intro-title"><span>People build</span><i>better systems.</i></h1><p className="intro-copy scroll-reveal">Sistem Informasi bukan hanya kode dan data. Ini tentang manusia, cerita, dan ide yang diubah menjadi pengalaman digital.</p><div className="system-tags scroll-reveal"><span>ANALYSIS</span><span>DATABASE</span><span>INTERFACE</span></div><a className="discover scroll-reveal" href="#students">MEET THE CLASS <span>↓</span></a><div className="number-mark scroll-reveal">02</div><div className="intro-status scroll-reveal" aria-hidden="true"><span>HUMAN</span><i /><span>DATA</span><i /><span>SYSTEM</span><b>CONNECTED</b></div></section>
-    <section className="students" id="students" onPointerMove={(event) => { const rect = event.currentTarget.getBoundingClientRect(); event.currentTarget.style.setProperty('--cursor-x', `${Math.round((event.clientX - rect.left) / rect.width * 100)}%`); event.currentTarget.style.setProperty('--cursor-y', `${Math.round((event.clientY - rect.top) / rect.height * 100)}%`) }}>
+    <section className="students" id="students" onPointerMove={trackStudentField}>
       <div className="student-radar" aria-hidden="true"><i /><i /><i /></div>
       <div className="student-motion" aria-hidden="true"><i /><i /><i /><span>SELECT / VIEW / ARCHIVE /</span><span>01 02 03 04 05 06 07 08 09 10</span></div>
       <div className="campus-note">FIRST DRAFT / BEST PEOPLE</div>
