@@ -204,3 +204,17 @@ button, input { -webkit-tap-highlight-color: transparent; }
   .landing .data-console .flow-labels { padding: 8px 12px !important; }
   .landing .landing-note { display: none !important; }
 }
+
+/* Keep the compact console below the CTA on every phone height. */
+@media (max-width: 800px) {
+  body .landing .data-console {
+    top: auto !important;
+    bottom: 42px !important;
+    transform: none !important;
+  }
+  body .landing .data-console .console-hero,
+  body .landing .data-console .console-lines { display: none !important; }
+  body .landing .data-console .console-head { padding: 8px 12px !important; }
+  body .landing .data-console .signal-bars { height: 44px !important; }
+  body .landing .data-console .flow-labels { padding: 8px 12px !important; }
+}
