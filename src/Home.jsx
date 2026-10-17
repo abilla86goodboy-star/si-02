@@ -7,7 +7,7 @@ import farelPhoto from './assets/Farel-Juliansyah.jpeg'
 import fahryPhoto from './assets/Fahry-Fanshuri.jpg'
 import azkaPhoto from './assets/azka.jpeg'
 import rizkiPhoto from './assets/rizki.jpg'
-import shevaPhoto from './assets/Sheva.jpg'
+import shevaPhoto from './assets/Sheva.jpg' 
 import khiarPhoto from './assets/Khiar.jpg'
 import champagneAudio from './assets/lagu/Oasis - Champagne Supernova (Official Video).mp3'
 import kitaLewatiAudio from './assets/lagu/Overnight - Kita Lewati Berdua (Official Lyric Video).mp3'
@@ -18,6 +18,10 @@ import ryoPhoto from './assets/ryo.webp'
 import stayingAudio from './assets/lagu/Lizzy McAlpine - Staying (Official Audio).mp3'
 import fabianPhoto from './assets/fabian.jpg'
 import bopAudio from './assets/lagu/DaBaby - BOP (Lyrics).mp3'
+import fahryArmyPhoto from './assets/fahryarmy.heic'
+import whateverAudio from './assets/lagu/Whatever (Remastered).mp3'
+import ahmadFauzanPhoto from './assets/AhmadFauzan.jpg'
+import taritoAudio from './assets/lagu/TARITO (OFFICIAL MUSIC VIDEO) OSEN HUTASOIT.mp3'
 
 const people = [
   { name: 'Abilla Muhammad Eljalali', role: 'Love 404 Not Found', song: 'Creep', artist: 'Radiohead', initials: 'AE', about: 'Love 404 Not Found — sebuah ruang kecil untuk cerita yang belum menemukan jawabannya.', photo: abillaPhoto, audio: creepAudio, artistUrl: 'https://www.radiohead.com/', photoClass: 'abilla-photo' },
@@ -30,6 +34,8 @@ const people = [
   { name: 'Khiar Fadya Purnama', role: 'Diam bukan berarti lemah.', song: 'Sambalado', artist: 'Ayu Ting Ting', initials: 'KF', about: 'Diam bukan berarti lemah, tapi lapar.', photo: khiarPhoto, audio: sambaladoAudio },
   { name: 'Ryo Febri Berlian', role: 'Fokus pada progres, bukan validasi.', song: 'Staying', artist: 'Lizzy McAlpine', initials: 'RF', about: 'Fokus pada progres, bukan validasi. Pelan tidak apa-apa, selama tetap bertumbuh.', photo: ryoPhoto, audio: stayingAudio, photoClass: 'ryo-photo', profileClass: 'ryo-profile' },
   { name: 'Fabian Ayodya', role: 'Jika tidak ingin ada masalah, maka matilah.', song: 'BOP', artist: 'DaBaby', initials: 'FA', about: 'Jika tidak ingin ada masalah, maka matilah.', photo: fabianPhoto, audio: bopAudio },
+  { name: 'Fahry Army', role: '@otakuhiker', song: 'Whatever', artist: 'Oasis', initials: 'FA', about: '@otakuhiker — tetap jalan dengan cara sendiri, simpan cerita di setiap perjalanan.', photo: fahryArmyPhoto, audio: whateverAudio, photoClass: 'fahry-army-photo' },
+  { name: 'Ahmad Fauzan', role: 'DANG ADONG TARPATUPA NI DEBATA', song: 'TARITO', artist: 'Osen Hutasoit', initials: 'AF', about: 'DANG ADONG TARPATUPA NI DEBATA.', photo: ahmadFauzanPhoto, audio: taritoAudio },
 ]
 
 function DemoPlayer({ active, setActive, source, playerRef, onTrackStart }) {
